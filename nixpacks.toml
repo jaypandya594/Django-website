@@ -1,2 +1,10 @@
 [phases.setup]
 nixPkgs = ["gcc", "postgresql", "python39"]
+
+[phases.install]
+cmds = [
+    "python -m venv --copies /opt/venv",
+    ". /opt/venv/bin/activate",
+    "pip install 'setuptools<58.0.0'",
+    "pip install -r requirements.txt"
+]

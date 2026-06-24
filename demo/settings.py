@@ -4,8 +4,16 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
+)
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    'CSRF_TRUSTED_ORIGINS',
+    ''
+).split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,12 +80,13 @@ DATABASES = {
 
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3')
+    )
    # "default": {
     #    "ENGINE": "django.db.backends.sqlite3",
      
     #"NAME": os.path.join(BASE_DIR, 'db.sqlite3')
     }
-}
+
 
 if ENVIRONMENT == 'production':
     DEBUG = False
@@ -118,5 +127,5 @@ SOCIALACCOUNT_PROVIDERS = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STRIPE_PUBLIC_KEY = 'pk_test_lX3r6OMjOU2yzFsNSHq6belT00EY82kZmH'
-STRIPE_SECRET_KEY = 'sk_test_tn0CTDaIJHUJyAqhsf39cfsC00LNjsqDnb'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')

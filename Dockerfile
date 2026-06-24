@@ -1,3 +1,4 @@
+
 FROM python:3.7-slim
 
 WORKDIR /app
@@ -12,13 +13,14 @@ RUN pip install --no-cache-dir \
     stripe==2.37.1 \
     Pillow \
     gunicorn \
-    whitenoise
+    whitenoise \
+    dj-database-url \
+    psycopg2-binary
 
 COPY . .
 
-# Collect static files
 RUN python manage.py collectstatic --noinput || true
 
 EXPOSE 8000
 
-CMD ["gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2"]
+CMD ["gunicorn", "demo.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2"]

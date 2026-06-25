@@ -12,7 +12,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Upgrade pip and install setuptools fallback first to handle legacy packages (like jsmin/allauth)
-RUN pip install --no-cache-dir --upgrade pip setuptools<58.0.0
+RUN pip install --no-cache-dir --upgrade pip "setuptools<58.0.0"
 
 # Install requirements from your cleaned file + your production servers
 RUN pip install --no-cache-dir -r requirements.txt \
